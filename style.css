@@ -108,6 +108,18 @@ p {
     box-sizing: border-box; /* Prevents the padding from stretching the screen too far */
 }
 
+/* #youtube and #av-techno are visually one "YouTube" section split across two blocks,
+   so they sit closer together than the full-screen gap between other sections. */
+#youtube {
+    padding-bottom: 20px;
+    min-height: auto;
+}
+
+#av-techno {
+    padding-top: 20px;
+    min-height: auto;
+}
+
 /* --- SECTION HEADERS --- */
 .section-header {
     text-align: center;
