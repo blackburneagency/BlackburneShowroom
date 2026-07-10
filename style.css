@@ -293,14 +293,20 @@ p {
     .showroom-nav {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 12px;
         padding: 15px 20px;
     }
 
     .nav-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        justify-items: center;
+        gap: 10px 30px;
+        width: auto;
+    }
+
+    .hero-section {
+        box-sizing: border-box;
+        padding-top: 150px;
     }
 }
