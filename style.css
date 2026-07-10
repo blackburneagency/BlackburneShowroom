@@ -1,0 +1,286 @@
+/* --- FOUNDATION --- */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0; 
+    padding: 0;
+}
+
+/* --- NAVIGATION BAR --- */
+.showroom-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: rgba(18, 18, 18, 0.95);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #555555;
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 0 20px; /* Adds a little breathing room on mobile screens */
+}
+
+h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+/* Updated for your new subheading */
+p {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    max-width: 700px; /* Prevents the text from stretching too wide on large monitors */
+    line-height: 1.6; /* Adds elegant vertical spacing between lines */
+    margin: 0 auto;
+}
+
+/* --- HERO CONTACT INFO --- */
+.contact-info {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.contact-info a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #555555;
+}
+
+/* --- MEDIA SECTIONS (Reusable for SoundCloud and Instagram later) --- */
+.media-section {
+    padding: 100px 50px;
+    max-width: 1200px;
+    margin: 0 auto; 
+    min-height: 100vh; /* Forces the section to be exactly the height of the screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers everything vertically */
+    box-sizing: border-box; /* Prevents the padding from stretching the screen too far */
+}
+
+/* --- SECTION HEADERS --- */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.channel-link {
+    display: inline-block;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #a0a0a0;
+    padding-bottom: 4px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.channel-link:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* Let's also ensure our video grid takes up the full width of this centered container. Replace your existing .video-grid rule with this one. */
+.video-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+/* We style the container to maintain a perfect 16:9 cinematic aspect ratio */
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #1a1a1a; /* A subtle placeholder color */
+    border-radius: 8px; /* Smooth, modern rounded corners */
+    overflow: hidden; /* Keeps the video edges perfectly rounded */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* A premium drop shadow */
+}
+
+/* We force the YouTube iframe to perfectly fill our styled container */
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- INDIVIDUAL VIDEO TITLES --- */
+.video-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Perfect spacing between the title and the video player */
+}
+
+.video-title {
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0; /* Removes default browser margins for precise control */
+}
+
+/* --- SOUNDCLOUD GENRE BLOCKS --- */
+.genre-block {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.genre-block:last-of-type {
+    margin-bottom: 0;
+}
+
+.genre-title {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 10px;
+}
+
+.track-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.track-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #a0a0a0;
+    margin: 0;
+}
+
+.track-container {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.track-container iframe {
+    display: block;
+    border: none;
+}
+
+/* --- SOUNDCLOUD FULL CHANNEL LINKS --- */
+.channel-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #333333;
+}
+
+.channel-links a {
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #a0a0a0;
+    padding-bottom: 4px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.channel-links a:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* --- INSTAGRAM GRID --- */
+.insta-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.insta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.insta-title {
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+}
+
+.insta-item .instagram-media {
+    margin: 0 auto !important;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
