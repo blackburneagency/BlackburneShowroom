@@ -325,3 +325,20 @@ p {
         padding-top: 150px;
     }
 }
+
+/* --- MOBILE GRIDS (phones only; desktop/tablet layout untouched) ---
+   On phones, 50px of section padding plus a 300px grid-column floor left less
+   than 300px of usable width, forcing YouTube/Instagram grid items past the
+   right edge of the screen. Below 600px we drop to a true single column and
+   trim the section padding so nothing is forced wider than the viewport. */
+@media (max-width: 600px) {
+    .media-section {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .video-grid,
+    .insta-grid {
+        grid-template-columns: 1fr;
+    }
+}
