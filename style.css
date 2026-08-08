@@ -1,10 +1,47 @@
+/* =========================================================
+   BLACKBURNE AGENCY — SOVEREIGN SHOWROOM
+   Vanilla CSS3. No frameworks, no dependencies.
+   ---------------------------------------------------------
+   To change the site's accent colour, edit --accent below.
+   ========================================================= */
+
+:root {
+    --bg: #121212;
+    --bg-raised: #1a1a1a;
+    --text: #ffffff;
+    --text-muted: #a0a0a0;
+    --line: #333333;
+
+    /* Signature accent — warm gold. Swap this one value to re-theme the site. */
+    --accent: #d4a24c;
+    --accent-soft: rgba(212, 162, 76, 0.35);
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
 /* --- FOUNDATION --- */
+html {
+    scroll-behavior: smooth; /* Glides to sections instead of jumping */
+}
+
 body {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: var(--bg);
+    color: var(--text);
     font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin: 0; 
+    margin: 0;
     padding: 0;
+    /* Subtle depth so the dark background reads as space, not a flat void */
+    background-image:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 162, 76, 0.10), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 40%, rgba(255, 255, 255, 0.03), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 0% 80%, rgba(255, 255, 255, 0.03), transparent 60%);
+    background-attachment: fixed;
+}
+
+/* Anchor targets clear the fixed nav bar when scrolled to */
+section[id],
+header[id] {
+    scroll-margin-top: 90px;
 }
 
 /* --- NAVIGATION BAR --- */
@@ -13,18 +50,36 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: rgba(18, 18, 18, 0.95);
+    background-color: rgba(18, 18, 18, 0.72);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
     position: fixed;
     width: 100%;
     top: 0;
     box-sizing: border-box;
     z-index: 1000;
+    transition: padding 0.4s var(--ease),
+                background-color 0.4s var(--ease),
+                border-color 0.4s var(--ease);
+}
+
+/* Applied by script.js once the user scrolls past the hero */
+.showroom-nav.scrolled {
+    padding: 12px 50px;
+    background-color: rgba(18, 18, 18, 0.92);
+    border-bottom-color: var(--line);
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
     letter-spacing: 3px;
+    transition: color 0.3s var(--ease);
+}
+
+.logo:hover {
+    color: var(--accent);
 }
 
 .nav-links {
@@ -36,16 +91,39 @@ body {
 }
 
 .nav-links a {
-    color: #ffffff;
+    position: relative;
+    display: inline-block;
+    color: var(--text);
     text-decoration: none;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: color 0.3s ease;
+    padding-bottom: 4px;
+    transition: color 0.3s var(--ease);
 }
 
-.nav-links a:hover {
-    color: #555555;
+/* Animated underline that wipes in from the left */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    transform: scaleX(1);
 }
 
 /* --- HERO SECTION --- */
@@ -68,7 +146,7 @@ h1 {
 /* Updated for your new subheading */
 p {
     font-size: 1.2rem;
-    color: #a0a0a0;
+    color: var(--text-muted);
     max-width: 700px; /* Prevents the text from stretching too wide on large monitors */
     line-height: 1.6; /* Adds elegant vertical spacing between lines */
     margin: 0 auto;
@@ -84,23 +162,23 @@ p {
 }
 
 .contact-info a {
-    color: #ffffff;
+    color: var(--text);
     text-decoration: none;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    transition: color 0.3s ease;
+    transition: color 0.3s var(--ease);
 }
 
 .contact-info a:hover {
-    color: #555555;
+    color: var(--accent);
 }
 
 /* --- MEDIA SECTIONS (Reusable for SoundCloud and Instagram later) --- */
 .media-section {
     padding: 100px 50px;
     max-width: 1200px;
-    margin: 0 auto; 
+    margin: 0 auto;
     min-height: 100vh; /* Forces the section to be exactly the height of the screen */
     display: flex;
     flex-direction: column;
@@ -108,8 +186,9 @@ p {
     box-sizing: border-box; /* Prevents the padding from stretching the screen too far */
 }
 
-/* #youtube and #av-techno are visually one "YouTube" section split across two blocks,
-   so they sit closer together than the full-screen gap between other sections. */
+/* #youtube, #av-techno and #youtube-playlists are visually one "YouTube" section
+   split across three blocks, so they sit closer together than the full-screen
+   gap between other sections. */
 #youtube {
     padding-bottom: 20px;
     min-height: auto;
@@ -139,24 +218,35 @@ p {
     margin-bottom: 15px;
 }
 
+/* Short accent rule under each section heading */
+.section-header h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    margin: 18px auto 0;
+    background-color: var(--accent);
+    opacity: 0.9;
+}
+
 .channel-link {
     display: inline-block;
-    color: #a0a0a0;
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-bottom: 1px solid #a0a0a0;
+    border-bottom: 1px solid var(--text-muted);
     padding-bottom: 4px;
-    transition: color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
 .channel-link:hover {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
-/* Let's also ensure our video grid takes up the full width of this centered container. Replace your existing .video-grid rule with this one. */
+/* Let's also ensure our video grid takes up the full width of this centered container. */
 .video-grid {
     width: 100%;
     display: grid;
@@ -169,10 +259,17 @@ p {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-color: #1a1a1a; /* A subtle placeholder color */
+    background-color: var(--bg-raised); /* A subtle placeholder color */
     border-radius: 8px; /* Smooth, modern rounded corners */
     overflow: hidden; /* Keeps the video edges perfectly rounded */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* A premium drop shadow */
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+/* Lift + accent glow when hovering a video card */
+.video-item:hover .video-container {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-soft);
 }
 
 /* We force the YouTube iframe to perfectly fill our styled container */
@@ -202,8 +299,13 @@ p {
     height: 2.6em; /* Reserves space for 2 lines so short and long titles align the same */
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text);
     margin: 0; /* Removes default browser margins for precise control */
+    transition: color 0.3s var(--ease);
+}
+
+.video-item:hover .video-title {
+    color: var(--accent);
 }
 
 /* --- SOUNDCLOUD GENRE BLOCKS --- */
@@ -223,10 +325,22 @@ p {
     font-size: 1.4rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text);
     margin: 0 0 20px 0;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid var(--line);
     padding-bottom: 10px;
+    position: relative;
+}
+
+/* Accent tick that grows along the divider when the block scrolls into view */
+.genre-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 80px;
+    height: 1px;
+    background-color: var(--accent);
 }
 
 .track-item {
@@ -239,16 +353,27 @@ p {
     font-size: 1rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #a0a0a0;
+    color: var(--text-muted);
     margin: 0;
+    transition: color 0.3s var(--ease);
+}
+
+.track-item:hover .track-title {
+    color: var(--accent);
 }
 
 .track-container {
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #1a1a1a;
+    background-color: var(--bg-raised);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.track-item:hover .track-container {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-soft);
 }
 
 .track-container iframe {
@@ -264,23 +389,23 @@ p {
     gap: 40px;
     margin-top: 40px;
     padding-top: 30px;
-    border-top: 1px solid #333333;
+    border-top: 1px solid var(--line);
 }
 
 .channel-links a {
-    color: #a0a0a0;
+    color: var(--text-muted);
     text-decoration: none;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    border-bottom: 1px solid #a0a0a0;
+    border-bottom: 1px solid var(--text-muted);
     padding-bottom: 4px;
-    transition: color 0.3s ease, border-color 0.3s ease;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
 }
 
 .channel-links a:hover {
-    color: #ffffff;
-    border-color: #ffffff;
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 /* --- INSTAGRAM GRID --- */
@@ -308,8 +433,13 @@ p {
     height: 2.6em; /* Reserves space for 2 lines so short and long titles align the same */
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--text);
     margin: 0;
+    transition: color 0.3s var(--ease);
+}
+
+.insta-item:hover .insta-title {
+    color: var(--accent);
 }
 
 .insta-item .instagram-media {
@@ -317,6 +447,43 @@ p {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+
+.insta-item:hover .instagram-media {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-soft);
+}
+
+/* =========================================================
+   SCROLL REVEAL
+   The .has-reveal class is added to <html> by an inline script
+   in the <head>, so these start hidden with no flash of content.
+   If JavaScript is unavailable the class is never added and
+   everything renders normally.
+   ========================================================= */
+.has-reveal .section-header,
+.has-reveal .video-item,
+.has-reveal .track-item,
+.has-reveal .insta-item,
+.has-reveal .genre-title,
+.has-reveal .channel-links,
+.has-reveal .contact-info {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    will-change: opacity, transform;
+}
+
+.has-reveal .section-header.is-visible,
+.has-reveal .video-item.is-visible,
+.has-reveal .track-item.is-visible,
+.has-reveal .insta-item.is-visible,
+.has-reveal .genre-title.is-visible,
+.has-reveal .channel-links.is-visible,
+.has-reveal .contact-info.is-visible {
+    opacity: 1;
+    transform: none;
 }
 
 /* --- MOBILE NAV (phones only; desktop layout untouched) --- */
@@ -326,6 +493,10 @@ p {
         align-items: center;
         gap: 12px;
         padding: 15px 20px;
+    }
+
+    .showroom-nav.scrolled {
+        padding: 10px 20px;
     }
 
     .nav-links {
@@ -339,6 +510,11 @@ p {
     .hero-section {
         box-sizing: border-box;
         padding-top: 150px;
+    }
+
+    section[id],
+    header[id] {
+        scroll-margin-top: 140px;
     }
 }
 
@@ -356,5 +532,30 @@ p {
     .video-grid,
     .insta-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* --- ACCESSIBILITY: respect the OS "reduce motion" setting --- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .has-reveal .section-header,
+    .has-reveal .video-item,
+    .has-reveal .track-item,
+    .has-reveal .insta-item,
+    .has-reveal .genre-title,
+    .has-reveal .channel-links,
+    .has-reveal .contact-info {
+        opacity: 1;
+        transform: none;
     }
 }
